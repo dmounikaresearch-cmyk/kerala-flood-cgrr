@@ -1,0 +1,30 @@
+# Experiment configuration (Paper 4). Values marked ASSUMED must be justified in Sect. 6.
+smoke_test: true            # true = random data, code check only. NEVER report these numbers.
+events: ["2018", "2019"]
+data_dir: data/processed    # inputs described in notebooks/02_experiments.ipynb
+results_dir: results
+
+model:
+  alpha: 0.10               # conformal miscoverage (target coverage 0.90)
+  eta: 0.10                 # trigger threshold
+  beta: 0.5                 # travel-time increase per metre of predicted depth   (ASSUMED, Pregnolato et al. 2017)
+  tau_max: 12.0             # hours                                              (ASSUMED)
+  lam: 0.01                 # travel-time weight
+  mu: 0.05                  # relocation weight
+  rho: 0.5                  # equity floor
+  fixed_width: 0.30         # +-30 % ranges for B4 / A1
+  b4_gamma_frac: 0.5        # hand-tuned Gamma of B4
+  need_beta: [2.0, 98.0]    # share of exposed people needing help, mean 0.02    (ASSUMED)
+  resources:
+    team:    {kappa: 150, hmax: 0.3,  mode: road}   # (ASSUMED)
+    boat:    {kappa: 60,  hmax: 99.0, mode: boat}   # (ASSUMED)
+    medical: {kappa: 80,  hmax: 0.3,  mode: road}   # (ASSUMED)
+
+experiment:
+  n_runs: 200
+  n_scen_b3: 30
+  b5_search: 60
+  seed: 42
+  sensitivity_alpha: [0.05, 0.10, 0.20, 0.30]
+  sensitivity_eta: [0.0, 0.05, 0.10, 0.20, 0.30]
+  demand_means: [0.01, 0.02, 0.05]

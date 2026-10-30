@@ -2,7 +2,7 @@
 pipeline expects, to check that the code runs. Never report these numbers."""
 import numpy as np
 import pandas as pd
-from cgrr import CLASSES
+from common import CLASSES
 
 
 def make(seed=0, I=14, J=5, T=40, n_cal_periods=60):

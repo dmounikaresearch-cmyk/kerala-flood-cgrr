@@ -51,7 +51,7 @@
 
 \begin{document}
 
-\title[Calibration-guided reallocation of flood emergency resources]{Calibration-guided robust reallocation of emergency resources under evolving flood risk forecasts: a digital twin framework applied to the 2018 Kerala floods}
+\title[Calibration-guided reallocation of flood emergency resources]{Calibration-guided robust reallocation of emergency resources under evolving flood risk forecasts: a digital twin framework}
 
 \author[1,2]{\fnm{Dannuri} \sur{Mounika}}\email{dmounikaresearch@gmail.com}
 \author*[1]{\fnm{Johnson} \sur{Kolluri}}\email{johnson.kolluri@sru.edu.in}
@@ -60,9 +60,9 @@
 \affil[2]{\orgdiv{Department of CSE-AIML}, \orgname{TKR College of Engineering and Technology}, \orgaddress{\city{Hyderabad}, \postcode{500097}, \state{Telangana}, \country{India}}}
 
 %% Natural Hazards: 150--250 words
-\abstract{In the first days of a major flood, disaster management authorities must place scarce rescue teams, boats and medical units while risk forecasts keep changing and roads close to floodwater and landslides. Existing allocation models describe forecast uncertainty with hand-tuned budgets, so the protection a plan offers is not tied to how reliable the forecasts actually are. This study links the two. District-level conformal prediction sets from a flood risk model are converted, through an exposure and vulnerability model, into demand ranges that contain the true demand with a chosen probability $1-\alpha$. A robust allocation model then assigns resources, with travel times that grow with predicted inundation depth, routes closed by landslides removed, and a cost for moving teams. A trigger rule re-plans only when forecasts, risk classes or road conditions change enough to justify it. The framework is evaluated on a hindcast of the August 2018 Kerala floods across \tofill{N} units, with the August 2019 floods held out as an independent test, against static, proportional, stochastic, fixed-budget robust and learned allocation policies. \tofill{Main quantitative findings against the best baseline: unmet demand, response time, coverage, relocations.} \tofill{Result on the 2019 hold-out event and the stress scenarios.} The framework gives State and District Disaster Management Authorities one interpretable reliability setting and a stated reason for each redeployment.}
+\abstract{In the first days of a major flood, disaster management authorities must place scarce rescue teams, boats and medical units while risk forecasts keep changing and roads close to floodwater and landslides. Existing allocation models describe forecast uncertainty with hand-tuned budgets, so the protection a plan offers is not tied to how reliable the forecasts are. This study links the two in a digital twin framework. Flood risk forecasts are first recalibrated by temperature scaling and then converted, through conformal prediction and an exposure and vulnerability model, into demand ranges that contain the true demand with a chosen probability $1-\alpha$. A robust allocation model assigns resources, with travel times that grow with predicted inundation depth, routes closed by landslides removed, and a cost for moving teams. A trigger rule re-plans only when forecasts, risk classes or road conditions change enough. The framework is evaluated on hindcasts of the August 2018 Kerala floods and, as an independent test, the August 2019 floods, against static, forecast-based (uncalibrated and calibrated), proportional, stochastic, fixed-budget robust and learned policies. \tofill{Calibration result (ECE before/after).} \tofill{Main allocation findings against the best baseline: unmet demand, response time, coverage, relocations, fairness.} \tofill{Result on 2019 and under sudden escalation.} The framework gives disaster management authorities one interpretable reliability setting and a stated reason for each redeployment.}
 
-\keywords{Flood emergency response, Resource allocation, Kerala floods, Conformal prediction, Robust optimization, Digital twin}
+\keywords{Flood emergency response, Forecast calibration, Conformal prediction, Robust optimization, Digital twin, Kerala floods}
 
 \maketitle
 
@@ -75,7 +75,7 @@ Forecasting has advanced faster than the decisions that depend on it. Deep learn
 
 The step from hazard to decision is where the hazard literature is thinnest. A recent systematic review of 80 studies on landslides affecting roads found that 90\% assessed susceptibility or hazard, but only 21\% completed the chain from hazard to consequence to risk, only 9\% modelled network connectivity and only 10\% quantified indirect losses \citep{Vega2026}. Studies that do model emergency logistics usually take forecasts as given, with uncertainty budgets chosen by the modeller \citep{Caunhye2012,Zhang2023}. The protection a plan offers is therefore not tied to the measured reliability of the forecasts that drive it, and re-planning at every period can move teams back and forth as forecasts fluctuate.
 
-This study builds a decision framework for flood response that closes that link. It converts calibrated hazard forecasts into demand ranges with a stated reliability, allocates resources so that the plan holds across those ranges on a road network that degrades with flood depth and landslide blockage, and re-plans only when the situation has changed enough to justify moving teams. The framework is tested on the 2018 Kerala floods and, as an independent check, on the August 2019 Kerala floods.
+This study builds a decision framework for flood response that closes that link. Its contribution is not a new flood prediction model: it shows how the reliability of whatever forecasts are available can be measured, improved and carried into allocation decisions. It recalibrates the forecast probabilities, converts them into demand ranges with a stated reliability, allocates resources so that the plan holds across those ranges on a road network that degrades with flood depth and landslide blockage, and re-plans only when the situation has changed enough to justify moving teams. The framework is tested on the 2018 Kerala floods and, as an independent check, on the August 2019 Kerala floods.
 
 The study addresses three research questions:
 \begin{enumerate}
@@ -84,7 +84,7 @@ The study addresses three research questions:
 \item[RQ3.] Does linking travel times to predicted inundation depth and observed landslide blockages reduce failed dispatches on the roads that actually closed?
 \end{enumerate}
 
-The contributions are as follows. (1) A procedure that converts district-level conformal prediction sets of flood risk classes into demand ranges with a coverage interpretation, so that a single setting $\alpha$ controls how cautious the plan is. (2) A robust allocation model with inundation-dependent travel times, landslide road closures and an explicit cost for relocating teams, with two supporting properties: its robust form is exact and linear, and calibrated forecasts give a probabilistic bound on unmet demand. (3) A forecast-triggered re-planning rule that gives authorities a stated reason for each redeployment. (4) A hindcast evaluation on the 2018 Kerala floods, with the 2019 floods held out, against five baselines, with ablations and stress scenarios, and recommendations for disaster management authorities.
+The contributions are as follows. (1) A calibration-to-decision chain: forecast probabilities are recalibrated by temperature scaling, and district-level conformal prediction sets of flood risk classes into demand ranges with a coverage interpretation, so that a single setting $\alpha$ controls how cautious the plan is. (2) A robust allocation model with inundation-dependent travel times, landslide road closures and an explicit cost for relocating teams, with two supporting properties: its robust form is exact and linear, and calibrated forecasts give a probabilistic bound on unmet demand. (3) A forecast-triggered re-planning rule that gives authorities a stated reason for each redeployment. (4) A hindcast evaluation on the 2018 Kerala floods, with the 2019 floods held out, against seven baselines including uncalibrated and calibrated forecast-based allocation, with ablations and stress scenarios, and recommendations for disaster management authorities.
 
 Section~\ref{sec:lit} surveys the literature and Section~\ref{sec:gap} states the problem and the research gap. Section~\ref{sec:novelty} presents the novel components and the proposed algorithm. Section~\ref{sec:data} describes the study area, data and preprocessing, and Section~\ref{sec:method} the methodology. Section~\ref{sec:metrics} defines the evaluation metrics, Section~\ref{sec:results} reports and discusses the results, and Section~\ref{sec:conclusion} concludes.
 
@@ -97,7 +97,7 @@ Flood risk models in India now operate at several scales. A district-level flood
 
 \subsection{Calibrated uncertainty for hazard forecasts}
 
-Conformal prediction constructs prediction sets that contain the true outcome with probability at least $1-\alpha$ under exchangeability, without distributional assumptions \citep{Vovk2005,Angelopoulos2023}. \citet{Pasche2026} combined extreme value statistics with conformal prediction to obtain reliable intervals for rare, high-impact events such as floods. \citet{Johnstone2021} showed that conformal prediction regions can serve as robust-optimization uncertainty sets with finite-sample guarantees, illustrated on simulated examples. Their use for sizing the uncertainty in disaster response decisions has, to our knowledge, not been explored.
+Probabilistic forecasts are often miscalibrated: a predicted probability of 0.8 is not realized 80\% of the time. Post-hoc calibration such as temperature scaling \citep{Guo2017} corrects this and is assessed with the expected calibration error (ECE), Brier score and negative log-likelihood (NLL). Conformal prediction constructs prediction sets that contain the true outcome with probability at least $1-\alpha$ under exchangeability, without distributional assumptions \citep{Vovk2005,Angelopoulos2023}. \citet{Pasche2026} combined extreme value statistics with conformal prediction to obtain reliable intervals for rare, high-impact events such as floods. \citet{Johnstone2021} showed that conformal prediction regions can serve as robust-optimization uncertainty sets with finite-sample guarantees, illustrated on simulated examples. Their use for sizing the uncertainty in disaster response decisions has, to our knowledge, not been explored.
 
 \subsection{Emergency resource allocation under uncertainty}
 
@@ -158,11 +158,11 @@ RQ1 addresses G1 and G2, RQ2 addresses G4 and RQ3 addresses G3.
 
 \subsection{Novel elements}
 
-The framework introduces four elements that, to our knowledge, have not been combined for flood emergency response. (N1) \emph{Calibrated demand ranges}: conformal prediction sets of flood risk classes are mapped through exposure and vulnerability into demand ranges with coverage at least $1-\alpha$ (Sect.~\ref{sec:bridge}). (N2) \emph{Data-driven uncertainty budget}: the number of units allowed to reach their upper demand together is set from calibration data rather than by hand (Definition~\ref{def:set}). (N3) \emph{Hazard-aware reachability}: travel times grow with predicted inundation depth, and routes deeper than a resource can cross or blocked by mapped landslides are excluded (Eq.~\ref{eq:travel}). (N4) \emph{Forecast-triggered re-planning}: the plan is revised only on a material forecast shift, a risk-class escalation or a route failure (Sect.~\ref{sec:trigger}). We call the combined method calibration-guided robust reallocation (CGRR). Novelty is claimed for the combination and its application to flood response; conformal sets for robust optimization exist in general \citep{Johnstone2021}.
+The framework introduces five elements that, to our knowledge, have not been combined for flood emergency response. (N0) \emph{Calibration before decision}: forecast probabilities are recalibrated (temperature scaling) and their reliability measured before they drive allocation (Sect.~\ref{sec:calib}). (N1) \emph{Calibrated demand ranges}: conformal prediction sets of flood risk classes are mapped through exposure and vulnerability into demand ranges with coverage at least $1-\alpha$ (Sect.~\ref{sec:bridge}). (N2) \emph{Data-driven uncertainty budget}: the number of units allowed to reach their upper demand together is set from calibration data rather than by hand (Definition~\ref{def:set}). (N3) \emph{Hazard-aware reachability}: travel times grow with predicted inundation depth, and routes deeper than a resource can cross or blocked by mapped landslides are excluded (Eq.~\ref{eq:travel}). (N4) \emph{Forecast-triggered re-planning}: the plan is revised only on a material forecast shift, a risk-class escalation or a route failure (Sect.~\ref{sec:trigger}). We call the combined method calibration-guided robust reallocation (CGRR). Novelty is claimed for the combination and its application to flood response; conformal sets for robust optimization exist in general \citep{Johnstone2021}.
 
 \subsection{Framework overview}
 
-The framework repeats four stages at each decision period (Fig.~\ref{fig:framework}). (i) The forecasting layer issues risk class probabilities, conformal prediction sets and predicted inundation depths, and the road layer reports landslide closures. (ii) An exposure model converts the conformal sets into unit demand ranges and a budgeted uncertainty set. (iii) A trigger rule decides whether the current plan should be revised. (iv) If so, a robust allocation model computes a new plan, which the digital twin then executes against the realized flood.
+The framework repeats four stages at each decision period (Fig.~\ref{fig:framework}). (i) The forecasting layer issues risk class probabilities, which are recalibrated and turned into conformal prediction sets, together with predicted inundation depths; the road layer reports landslide closures. (ii) An exposure model converts the conformal sets into unit demand ranges and a budgeted uncertainty set. (iii) A trigger rule decides whether the current plan should be revised. (iv) If so, a robust allocation model computes a new plan, which the digital twin then executes against the realized flood.
 
 \begin{figure}[h]
 \centering
@@ -236,9 +236,11 @@ The decision units are \tofill{taluks or the 14 districts}, $|I| = \tofill{N}$, 
 \toprule
 Data & Use in the model & Source \\
 \midrule
-Risk class probabilities and conformal sets & Demand ranges (Sect.~\ref{sec:bridge}) & Flood risk model with split conformal prediction, re-run for each event \\
+Risk class probabilities & Calibration, conformal sets, demand ranges (Sects.~\ref{sec:calib}--\ref{sec:bridge}) & Flood risk forecasting model (inputs: rainfall, discharge, terrain), re-run every 6 h for each event \\
 Predicted inundation depth & Travel time and passability & Flood digital twin inundation forecast \\
-Observed flood extent & Realized demand and flooded roads & Sentinel-1 SAR (Copernicus), via Google Earth Engine \citep{Tiwari2020} \\
+Observed flood extent & Ground truth for forecasts; realized demand; flooded roads & Copernicus Global Flood Monitoring (GFM) archive \citep{GFM}; cross-checked with own Sentinel-1 processing \citep{Tiwari2020} \\
+Rainfall & Forecasting-model input & NASA GPM IMERG \tofill{citation} \\
+River discharge forecasts & Forecasting-model input & GloFAS v4 reforecasts \tofill{citation} \\
 Landslide locations & Road closures & 2018: inventory of 4,728 landslides \citep{Hao2020}; 2019: \tofill{source} \\
 Relief-camp occupancy & Independent check of realized demand & District-wise camps and inmates, 2018 \citep{GoK2018Memo}; 2019: \tofill{source} \\
 Population & Exposed population $P_i$ & Census of India 2011 (projected) or WorldPop \\
@@ -255,7 +257,7 @@ Damage fraction per class & $\delta_k$ & Historical flood damage and relief-camp
 All methods compared in Section~\ref{sec:results} use the same preprocessed inputs, so that differences in results come from the allocation method alone.
 
 \subsubsection{Flood extent}
- Sentinel-1 ground-range-detected scenes in vertical--vertical (VV) polarization over Kerala are speckle-filtered, terrain-corrected and thresholded to water/non-water with an automatic threshold, following \citet{Tiwari2020}. Permanent water bodies are masked. Each scene is assigned to the decision period in which it was acquired; between acquisitions the flood extent is held at the last observation. \tofill{Scene dates and the number of periods covered by each scene.}
+ The primary flood extent is the Copernicus GFM product, available from 2015 \citep{GFM}. As a cross-check, Sentinel-1 ground-range-detected scenes in vertical--vertical (VV) polarization over Kerala are speckle-filtered, terrain-corrected and thresholded to water/non-water with an automatic threshold, following \citet{Tiwari2020}. Permanent water bodies are masked. Each scene is assigned to the decision period in which it was acquired; between acquisitions the flood extent is held at the last observation. \tofill{Scene dates and the number of periods covered by each scene.}
 
 \subsubsection{Exposed population}
  Gridded population is overlaid on the flood extent for each period to give the exposed population $P_{i,t}$ of each unit; the maximum over the event gives $P_i$.
@@ -273,10 +275,19 @@ All methods compared in Section~\ref{sec:results} use the same preprocessed inpu
  Realized demand in each unit and period is the exposed population multiplied by the damage fraction of its observed risk class. Because the forecast-side demand uses the same damage fractions, realized demand is also compared with district-wise relief-camp occupancy, an observation that does not depend on the model. \tofill{Rank correlation between modelled and observed district demand.}
 
 \subsubsection{Calibration and test split}
- The conformal predictor is calibrated on \tofill{monsoon periods before August 2018}. The 2018 event is the main test; the 2019 event is a held-out test that is never used for calibration or for tuning $\alpha$, $\eta$, $\beta$, $\lambda$ or $\mu$. Tuning uses \tofill{a validation period}.
+ Splits are chronological, never random, because nearby units and consecutive periods are correlated. The temperature and the conformal predictor are fitted on \tofill{monsoon periods before August 2018}. The 2018 event is the main test; the 2019 event is a held-out test that is never used for calibration or for tuning $\alpha$, $\eta$, $\beta$, $\lambda$ or $\mu$. Tuning uses \tofill{a validation period}.
 
 %% =====================================================================
 \section{Methodology}\label{sec:method}
+
+\subsection{Forecast calibration}\label{sec:calib}
+
+Let $\tilde p_{i,t,k}$ be the raw forecast probability of risk class $k$ for unit $i$ at time $t$. Temperature scaling \citep{Guo2017} rescales the log-probabilities with a single parameter $T>0$,
+\begin{equation}
+\hat p_{i,t,k} = \frac{\exp\!\big(\log \tilde p_{i,t,k}/T\big)}{\sum_{l \in K}\exp\!\big(\log \tilde p_{i,t,l}/T\big)},
+\label{eq:temp}
+\end{equation}
+where $T$ minimizes the negative log-likelihood of the observed classes over the calibration periods. $T>1$ softens over-confident forecasts and leaves the predicted class unchanged. All methods except the uncalibrated baseline (FU) use $\hat p$.
 
 \subsection{From conformal prediction sets to demand ranges}\label{sec:bridge}
 
@@ -365,11 +376,11 @@ The capacity floor stops near-zero demand early and late in the event from trigg
 
 \subsection{Hindcast simulator}
 
-The digital twin replays each event period by period. Plans are made only from forecasts available at decision time and are then scored against realized demand and realized road closures; no method sees realized values when planning. Uncertainty in the damage fractions is represented by drawing $\delta_k$ for each run from \tofill{a distribution fitted to historical records, e.g.\ a Beta distribution per class}; each configuration is run \tofill{200} times, a number justified by the convergence of the coefficient of variation of the main metrics. Optimization models are solved with HiGHS through PuLP \tofill{or Gurobi; hardware}.
+The digital twin replays each event period by period. Plans are made only from forecasts available at decision time and are then scored against realized demand and realized road closures; no method sees realized values when planning. Uncertainty in the damage fractions is represented by drawing $\delta_k$ for each run from \tofill{a distribution fitted to historical records, e.g.\ a Beta distribution per class}; each configuration is run \tofill{200} times, a number justified by the convergence of the coefficient of variation of the main metrics. Optimization models are solved with HiGHS (via PuLP 2.9) in Python on Google Colab \tofill{CPU/RAM}; the full configuration is listed in Online Resource 1 and in the code repository.
 
 \subsection{Baselines and ablations}
 
-Table~\ref{tab:baselines} lists the compared methods. All use the same inputs, decision periods and road closures. B5 is trained on \tofill{training events} and never on either test event. Ablation A1 replaces the conformal sets with fixed-width ($\pm 30\%$) ranges; A2a re-plans every period and A2b never re-plans; A3 plans with normal travel times and ignores landslide closures until a dispatch fails.
+Table~\ref{tab:baselines} lists the compared methods. All use the same inputs, decision periods and road closures. FU and FC solve the nominal version of (P) ($\Gamma_t=0$) on the raw and calibrated point forecasts; comparing FU with FC isolates the value of calibration, and FC with CGRR the value of calibrated uncertainty sets and triggered re-planning. B5 is trained on \tofill{training events} and never on either test event. Ablation A1 replaces the conformal sets with fixed-width ($\pm 30\%$) ranges; A2a re-plans every period and A2b never re-plans; A3 plans with normal travel times and ignores landslide closures until a dispatch fails.
 
 \begin{table}[h]
 \caption{Compared methods}\label{tab:baselines}
@@ -383,6 +394,8 @@ B2 & Proportional-to-risk heuristic & None & Every period \\
 B3 & Two-stage stochastic programming & Sampled scenarios & Every period \\
 B4 & Rolling budgeted robust optimization & Hand-tuned fixed budget & Every period \\
 B5 & Learned score-based dispatcher & Learned in simulator & Every period \\
+FU & Forecast-based allocation & Uncalibrated point forecast & Every period \\
+FC & Calibration-guided allocation & Calibrated point forecast & Every period \\
 CGRR & Proposed (Algorithm~\ref{alg:trigger}) & Conformal ranges & Triggered \\
 \botrule
 \end{tabular*}
@@ -390,7 +403,7 @@ CGRR & Proposed (Algorithm~\ref{alg:trigger}) & Conformal ranges & Triggered \\
 
 \subsection{Sensitivity and stress scenarios}
 
-We vary $\alpha \in \{0.05, 0.10, 0.20, 0.30\}$ and $\eta \in \{0, 0.05, 0.10, 0.20, 0.30\}$, and test three stress scenarios: S1, realized demand 30\% higher than the exposure model implies; S2, 25\% fewer resources; S3, forecast errors doubled at test time without recalibration, so that assumption A1 fails.
+We vary $\alpha \in \{0.05, 0.10, 0.20, 0.30\}$ and $\eta \in \{0, 0.05, 0.10, 0.20, 0.30\}$, and test four stress scenarios: S1, realized demand 30\% higher than the exposure model implies; S2, 25\% fewer resources; S3, forecast errors doubled at test time without recalibration, so that assumption A1 fails; S4, a sudden escalation in which demand doubles from mid-event in the three most exposed units, unforeseen by the forecasts. Because realized demand is a modelled proxy rather than observed emergency demand, results are also recomputed for mean need shares of 1\%, 2\% and 5\% of the exposed population.
 
 %% =====================================================================
 \section{Evaluation metrics}\label{sec:metrics}
@@ -410,6 +423,14 @@ with the demand-weighted 95th percentile $\mathrm{RT}_{95}$ and the share of dem
 \subsection{Operational metrics}
  Team relocations $\mathrm{REL} = \sum_t \sum_{r,j,i} y^{+}_{r,j,i,t}$ over the event; the number of re-plans; failed dispatches, i.e.\ resources sent on a route that was impassable at the time of travel because of flooding or a landslide; and computation time per re-plan.
 
+\subsection{Forecast and demand metrics}
+
+Forecast skill on the observed classes is reported as accuracy, macro-averaged precision, recall and F1, and macro one-versus-rest ROC-AUC. Calibration is reported as the top-label expected calibration error (ECE, 10 bins), the multi-class Brier score and the NLL, before and after temperature scaling, with reliability diagrams. Demand estimation is assessed by the mean absolute error (MAE) and root mean square error (RMSE) of $\hat d_{i,t}$ against the realized demand proxy, and by the rank correlation with relief-camp occupancy.
+
+\subsection{Fairness and utilization}
+
+Fairness is the Gini coefficient of the event-level share of demand served across units (0 = equal). Utilization is the share of dispatched capacity $\sum \kappa_r x$ that served demand. Uncovered exposed population counts exposed people in unit-periods where less than half of demand was served.
+
 \subsection{Reliability metrics}
  Empirical coverage of the conformal sets, $\frac{1}{|I|T}\sum_{i,t}\mathbf{1}\{k^\star_{i,t} \in C_{i,t}\}$, compared with the target $1-\alpha$; mean set size; and the exceedance rate $\frac{1}{|I|T}\sum_{i,t}\mathbf{1}\{s_{i,t} > a_{i,t}\}$, compared with the bound $\alpha$ of Proposition~\ref{prop:bound}.
 
@@ -421,7 +442,37 @@ with the demand-weighted 95th percentile $\mathrm{RT}_{95}$ and the share of dem
 %% Write each subsection only after the real-data experiments.
 %% Open with the finding and its number; use cautious wording.
 
-\subsection{Forecast calibration on the test events}
+\subsection{Forecast skill and calibration}
+
+\begin{table}[h]
+\caption{Forecasting skill on the test events}\label{tab:skill}
+\footnotesize
+\begin{tabular*}{\textwidth}{@{\extracolsep\fill}lccccc}
+\toprule
+Event & Accuracy & Precision & Recall & F1 & ROC-AUC \\
+\midrule
+2018 & \tofill{} & \tofill{} & \tofill{} & \tofill{} & \tofill{} \\
+2019 & \tofill{} & \tofill{} & \tofill{} & \tofill{} & \tofill{} \\
+\botrule
+\end{tabular*}
+\end{table}
+
+\begin{table}[h]
+\caption{Forecast calibration before and after temperature scaling, and demand-estimation error}\label{tab:calib}
+\footnotesize
+\begin{tabular*}{\textwidth}{@{\extracolsep\fill}llccccc}
+\toprule
+Event & Forecast & ECE & Brier & NLL & \makecell{Demand\\MAE} & \makecell{Demand\\RMSE} \\
+\midrule
+2018 & Uncalibrated & \tofill{} & \tofill{} & \tofill{} & \tofill{} & \tofill{} \\
+2018 & Temperature-scaled & \tofill{} & \tofill{} & \tofill{} & \tofill{} & \tofill{} \\
+2019 & Uncalibrated & \tofill{} & \tofill{} & \tofill{} & \tofill{} & \tofill{} \\
+2019 & Temperature-scaled & \tofill{} & \tofill{} & \tofill{} & \tofill{} & \tofill{} \\
+\botrule
+\end{tabular*}
+\end{table}
+
+\subsection{Conformal coverage on the test events}
 
 \tofill{Empirical conformal coverage on the 2018 and 2019 events at $\alpha = 0.10$ (target 0.90), mean set size, and the observed exceedance rate compared with the bound of Proposition~\ref{prop:bound}. Rank correlation between modelled demand and relief-camp occupancy.}
 
@@ -430,7 +481,7 @@ with the demand-weighted 95th percentile $\mathrm{RT}_{95}$ and the share of dem
 \tofill{Lead sentence with the main finding and its number.}
 
 \begin{table}[h]
-\caption{Performance on the 2018 Kerala hindcast: median over \tofill{200} runs, interquartile range in brackets. Bold: best; $^{\ast}$: CGRR differs significantly from the method (Wilcoxon, Holm-corrected $p<0.05$)}\label{tab:main}
+\caption{Allocation performance on the 2018 Kerala hindcast: median over \tofill{200} runs, interquartile range in brackets. Bold: best; $^{\ast}$: CGRR differs significantly from the method (Wilcoxon, Holm-corrected $p<0.05$)}\label{tab:main}
 \footnotesize
 \begin{tabular*}{\textwidth}{@{\extracolsep\fill}lccccccc}
 \toprule
@@ -441,6 +492,8 @@ B2 Proportional & \tofill{} & \tofill{} & \tofill{} & \tofill{} & \tofill{} & \t
 B3 Stochastic & \tofill{} & \tofill{} & \tofill{} & \tofill{} & \tofill{} & \tofill{} & \tofill{} \\
 B4 Fixed robust & \tofill{} & \tofill{} & \tofill{} & \tofill{} & \tofill{} & \tofill{} & \tofill{} \\
 B5 Learned & \tofill{} & \tofill{} & \tofill{} & \tofill{} & \tofill{} & \tofill{} & \tofill{} \\
+FU Uncalibrated & \tofill{} & \tofill{} & \tofill{} & \tofill{} & \tofill{} & \tofill{} & \tofill{} \\
+FC Calibrated & \tofill{} & \tofill{} & \tofill{} & \tofill{} & \tofill{} & \tofill{} & \tofill{} \\
 CGRR & \tofill{} & \tofill{} & \tofill{} & \tofill{} & \tofill{} & \tofill{} & \tofill{} \\
 \botrule
 \end{tabular*}
@@ -450,7 +503,27 @@ CGRR & \tofill{} & \tofill{} & \tofill{} & \tofill{} & \tofill{} & \tofill{} & \
 
 \tofill{Same table for 2019, or a compact version. State whether the ranking of methods holds on the held-out event.}
 
-\subsection{RQ1: value of calibrated demand ranges}
+\subsection{RQ1: value of calibration and calibrated demand ranges}
+
+\tofill{FU versus FC (value of calibration alone), FC versus CGRR (value of conformal ranges and triggering); fairness Gini, utilization and uncovered exposed population for all methods.}
+
+\begin{table}[h]
+\caption{Ablation study on the 2018 hindcast (median over \tofill{200} runs)}\label{tab:ablation}
+\footnotesize
+\begin{tabular*}{\textwidth}{@{\extracolsep\fill}lccccc}
+\toprule
+Variant & \makecell{Worst-unit\\weighted unmet} & \makecell{Coverage\\(\%)} & Relocations & Re-plans & \makecell{Failed\\dispatches} \\
+\midrule
+CGRR (full) & \tofill{} & \tofill{} & \tofill{} & \tofill{} & \tofill{} \\
+A1 no conformal ranges & \tofill{} & \tofill{} & \tofill{} & \tofill{} & \tofill{} \\
+A2a re-plan every period & \tofill{} & \tofill{} & \tofill{} & \tofill{} & \tofill{} \\
+A2b never re-plan & \tofill{} & \tofill{} & \tofill{} & \tofill{} & \tofill{} \\
+A3 no hazard-aware routing & \tofill{} & \tofill{} & \tofill{} & \tofill{} & \tofill{} \\
+FC no robustness, no trigger & \tofill{} & \tofill{} & \tofill{} & \tofill{} & \tofill{} \\
+\botrule
+\end{tabular*}
+\end{table}
+
 
 \tofill{CGRR versus ablation A1 and baseline B4: change in worst-unit unmet demand and cost; coverage--cost curve across $\alpha$ (Figure).}
 
@@ -465,7 +538,7 @@ CGRR & \tofill{} & \tofill{} & \tofill{} & \tofill{} & \tofill{} & \tofill{} & \
 \subsection{Sensitivity and stress scenarios}
 
 \begin{table}[h]
-\caption{Change of CGRR relative to the best baseline under each stress scenario}\label{tab:stress}
+\caption{Robustness: change of CGRR relative to the best baseline under each stress scenario}\label{tab:stress}
 \footnotesize
 \begin{tabular*}{\textwidth}{@{\extracolsep\fill}lccc}
 \toprule
@@ -474,11 +547,12 @@ Scenario & \makecell{Unmet demand\\change (\%)} & \makecell{P95 response\\change
 S1 Severe flood (+30\% demand) & \tofill{} & \tofill{} & \tofill{} \\
 S2 Resource shortage ($-$25\%) & \tofill{} & \tofill{} & \tofill{} \\
 S3 Forecast degradation & \tofill{} & \tofill{} & \tofill{} \\
+S4 Sudden escalation ($\times 2$, 3 units) & \tofill{} & \tofill{} & \tofill{} \\
 \botrule
 \end{tabular*}
 \end{table}
 
-\tofill{Paragraph on the $\eta$ sensitivity.}
+\tofill{Paragraph on the $\eta$ sensitivity and on the alternative demand assumptions (1\%, 2\%, 5\% need share).}
 
 \subsection{Discussion}
 
@@ -489,7 +563,7 @@ S3 Forecast degradation & \tofill{} & \tofill{} & \tofill{} \\
  The value of the allocation depends on forecast calibration. Model reliability can shift between periods \citep{Xiao2026}, so the calibration set for the conformal layer should be refreshed from recent events. Scenario S3 shows how the plan degrades when coverage is lower than promised. Because the severe class is rare, extreme conformal methods \citep{Pasche2026} may give tighter guarantees where they matter most.
 
 \subsubsection{Limitations}
- Demand is derived from exposure and damage fractions rather than observed rescue requests; relief-camp occupancy is used as an independent check but records people who reached camps, not those still waiting for rescue. The damage fractions carry their own uncertainty, which is propagated through the simulation runs. Landslide closure durations are approximate where reopening dates are not recorded. Proposition~\ref{prop:bound} relies on exchangeability and marginal coverage, which serially dependent flood data satisfy only approximately. The model does not represent crew fatigue, communication failures or coordination between agencies, and is solved one period at a time without multi-period look-ahead. Solve times grow with the number of units and resource types, so finer spatial units may need decomposition or heuristics.
+ Demand is a modelled proxy derived from exposure and damage fractions, not observed emergency demand, and simulated operational scenarios are kept distinct from observations throughout; relief-camp occupancy is used as an independent check but records people who reached camps, not those still waiting for rescue. The damage fractions carry their own uncertainty, which is propagated through the simulation runs. Landslide closure durations are approximate where reopening dates are not recorded. Proposition~\ref{prop:bound} relies on exchangeability and marginal coverage, which serially dependent flood data satisfy only approximately. The model does not represent crew fatigue, communication failures or coordination between agencies, and is solved one period at a time without multi-period look-ahead. Solve times grow with the number of units and resource types, so finer spatial units may need decomposition or heuristics.
 
 %% =====================================================================
 \section{Conclusion and future work}\label{sec:conclusion}

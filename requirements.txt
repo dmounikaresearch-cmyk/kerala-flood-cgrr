@@ -11,3 +11,4 @@ scipy
 pulp==2.9.0
 highspy
 matplotlib
+pyyaml
