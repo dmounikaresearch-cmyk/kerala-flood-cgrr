@@ -8,6 +8,6 @@ shapely
 pandas
 numpy
 scipy
-pulp
+pulp==2.9.0
 highspy
 matplotlib

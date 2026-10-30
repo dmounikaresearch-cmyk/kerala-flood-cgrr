@@ -1,8 +1,8 @@
-Planned modules (to be added with the experiment notebook):
+| Module | Contents | Paper |
+|---|---|---|
+| `cgrr.py` | conformal sets, demand ranges, Gamma calibration, model (P), stochastic B3, greedy B2/B5, trigger rule, hindcast evaluation, Wilcoxon/Holm, stress, sensitivity | Sect. 6–8 |
+| `routes.py` | realized road/boat travel times from flooded segments and landslide blockages | Sect. 5.3 |
+| `synthetic.py` | random inputs for code testing only — never for results | — |
+| `check_prop1.py` | numerical check of Proposition 1 (robust counterpart = brute-force worst case) | Sect. 6.3 |
 
-- `bridge.py` – conformal sets to demand ranges (Eq. 1–2)
-- `model.py` – robust reallocation model (P) with HiGHS/PuLP (Eq. 3–9)
-- `trigger.py` – forecast-triggered re-planning rule (Eq. 10)
-- `simulator.py` – hindcast digital twin
-- `baselines.py` – B1–B5 and ablations A1–A3
-- `metrics.py` – Section 7 metrics and Wilcoxon/Holm tests
+PuLP must be 2.9.x (PuLP 4 changed its API). Solver: HiGHS via `highspy`.
