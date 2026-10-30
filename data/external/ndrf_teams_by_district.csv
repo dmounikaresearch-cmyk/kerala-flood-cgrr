@@ -1,0 +1,19 @@
+event,datetime_ist,district,ndrf_teams,source_url
+2018,2018-08-16 17:00,Idukki,4,https://ndrf.gov.in/en/node/89178
+2018,2018-08-16 17:00,Thrissur,3,https://ndrf.gov.in/en/node/89178
+2018,2018-08-16 17:00,Pathanamthitta,3,https://ndrf.gov.in/en/node/89178
+2018,2018-08-16 17:00,Ernakulam,2,https://ndrf.gov.in/en/node/89178
+2018,2018-08-16 17:00,Alappuzha,2,https://ndrf.gov.in/en/node/89178
+2018,2018-08-16 17:00,Wayanad,2,https://ndrf.gov.in/en/node/89178
+2018,2018-08-16 17:00,Kozhikode,2,https://ndrf.gov.in/en/node/89178
+2018,2018-08-18 15:00,Thrissur,15,https://ndrf.gov.in/en/node/89184
+2018,2018-08-18 15:00,Pathanamthitta,13,https://ndrf.gov.in/en/node/89184
+2018,2018-08-18 15:00,Alappuzha,11,https://ndrf.gov.in/en/node/89184
+2018,2018-08-18 15:00,Ernakulam,5,https://ndrf.gov.in/en/node/89184
+2018,2018-08-18 15:00,Idukki,4,https://ndrf.gov.in/en/node/89184
+2018,2018-08-18 15:00,Malappuram,3,https://ndrf.gov.in/en/node/89184
+2018,2018-08-18 15:00,Wayanad,2,https://ndrf.gov.in/en/node/89184
+2018,2018-08-18 15:00,Kozhikode,2,https://ndrf.gov.in/en/node/89184
+2018,2018-08-21 17:00,ALL (state total),41,https://ndrf.gov.in/en/node/89189
+2019,2019-08-09,Wayanad (Puthumala),5,https://ndrf.gov.in/en/node/89425
+2019,2019-08-09,Malappuram (Kavalappara/Nilambur),4,https://ndrf.gov.in/en/node/89425

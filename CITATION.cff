@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "If you use this code or data, please cite it as below."
+title: "CGRR: Calibration-guided robust reallocation of flood emergency resources (Kerala 2018/2019)"
+authors:
+  - family-names: Mounika
+    given-names: Dannuri
+    affiliation: "SR University; TKR College of Engineering and Technology"
+  - family-names: Kolluri
+    given-names: Johnson
+    affiliation: "SR University"
+license: MIT
+repository-code: "https://github.com/dmounikaresearch-cmyk/kerala-flood-cgrr"
