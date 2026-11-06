@@ -1,0 +1,50 @@
+2026-11-06 16:06:06 START smoke_test=False python=3.13.18 numpy=2.4.6 pandas=2.2.3
+2026-11-06 16:06:06 CONFIG {"smoke_test": false, "events": ["2018", "2019"], "data_dir": "/content/drive/MyDrive/Paper4_Kerala", "results_dir": "/content/drive/MyDrive/Paper4_Kerala/results", "model": {"alpha": 0.1, "eta": 0.1, "beta": 0.5, "tau_max": 12.0, "lam": 0.01, "mu": 0.05, "rho": 0.5, "fixed_width": 0.3, "b4_gamma_frac": 0.5, "need_beta": [2.0, 98.0], "resources": {"team": {"kappa": 150, "hmax": 0.3, "mode": "road"}, "boat": {"kappa": 60, "hmax": 99.0, "mode": "boat"}, "medical": {"kappa": 80, "hmax": 0.3, "mode": "road"}}}, "experiment": {"n_runs": 200, "n_scen_b3": 30, "b5_search": 60, "seed": 42, "sensitivity_alpha": [0.05, 0.1, 0.2, 0.3], "sensitivity_eta": [0.0, 0.05, 0.1, 0.2, 0.3], "demand_means": [0.01, 0.02, 0.05]}}
+2026-11-06 16:06:06 [2018] temperature T=1.425  qhat=0.875  delta=[7.00e-06 7.60e-05 2.63e-04 4.61e-04]  Gamma=6
+2026-11-06 16:06:06 [2018] test ECE raw=0.107 -> scaled=0.150; Brier 0.470 -> 0.486
+2026-11-06 16:06:10   B1    replans=  1  coverage=36.3%
+2026-11-06 16:06:11   B2    replans= 96  coverage=63.0%
+2026-11-06 16:06:37   B3    replans= 96  coverage=85.2%
+2026-11-06 16:06:45   B4    replans= 96  coverage=65.6%
+2026-11-06 16:06:45   B5    replans= 96  coverage=62.7%
+2026-11-06 16:06:47   CGRR  replans= 20  coverage=76.5%
+2026-11-06 16:06:50   A1    replans= 21  coverage=65.4%
+2026-11-06 16:06:55   A2a   replans= 96  coverage=76.5%
+2026-11-06 16:06:55   A2b   replans=  1  coverage=56.9%
+2026-11-06 16:06:59   A3    replans= 21  coverage=76.6%
+2026-11-06 16:07:05   FU    replans= 96  coverage=55.6%
+2026-11-06 16:07:09   FC    replans= 96  coverage=57.7%
+2026-11-06 16:43:14   S1: best baseline B3
+2026-11-06 16:43:14   S2: best baseline B3
+2026-11-06 16:43:14   S3: best baseline B3
+2026-11-06 16:43:14   S4: best baseline B3
+2026-11-06 16:43:37   alpha=0.05 done
+2026-11-06 16:43:49   alpha=0.1 done
+2026-11-06 16:43:58   alpha=0.2 done
+2026-11-06 16:44:09   alpha=0.3 done
+2026-11-06 16:44:10 [2018] done
+2026-11-06 16:44:10 [2019] temperature T=1.425  qhat=0.875  delta=[7.00e-06 7.60e-05 2.63e-04 4.61e-04]  Gamma=6
+2026-11-06 16:44:10 [2019] test ECE raw=0.169 -> scaled=0.151; Brier 0.560 -> 0.556
+2026-11-06 16:44:12   B1    replans=  1  coverage=29.5%
+2026-11-06 16:44:12   B2    replans= 84  coverage=27.8%
+2026-11-06 16:53:40   B3    replans= 84  coverage=27.6%
+2026-11-06 17:19:47   B4    replans= 84  coverage=28.2%
+2026-11-06 17:19:47   B5    replans= 84  coverage=27.8%
+2026-11-06 17:21:23   CGRR  replans= 69  coverage=28.1%
+2026-11-06 17:44:01   A1    replans= 68  coverage=28.5%
+2026-11-06 17:45:43   A2a   replans= 84  coverage=28.1%
+2026-11-06 17:45:44   A2b   replans=  1  coverage=29.5%
+2026-11-06 17:45:48   A3    replans= 64  coverage=30.8%
+2026-11-06 17:46:05   FU    replans= 84  coverage=27.4%
+2026-11-06 17:48:44   FC    replans= 84  coverage=28.0%
+2026-11-06 18:05:02   S1: best baseline B1
+2026-11-06 18:05:02   S2: best baseline B1
+2026-11-06 18:05:02   S3: best baseline B1
+2026-11-06 18:05:02   S4: best baseline B1
+2026-11-06 18:06:22   alpha=0.05 done
+2026-11-06 18:13:20   alpha=0.1 done
+2026-11-06 18:19:52   alpha=0.2 done
+2026-11-06 18:25:06   alpha=0.3 done
+2026-11-06 18:25:07 [2019] done
+2026-11-06 18:25:07 END
+INPUT_SHA256_16 {"2018": {"forecasts": "1dec4a31025bb1cb", "stocks": "610e0187999926bd", "route_times": "3c0c78b75c9cb3c4", "exposure": "1141856b81f400e1", "tau0": "2be6eec7bf6fe711", "calibration": "49a98d2fdc626456"}, "2019": {"forecasts": "bd4d8ca4f91c3092", "stocks": "e8d562e6fa3e1c44", "route_times": "f3aff08bfb6d8387", "exposure": "1141856b81f400e1", "tau0": "2be6eec7bf6fe711", "calibration": "49a98d2fdc626456"}}
