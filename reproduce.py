@@ -41,6 +41,7 @@ for k, ev_name in enumerate(C["events"]):
         hashes[ev_name] = {k2: sha(p) for k2, p in files.items()}
         fc = pd.read_csv(files["forecasts"]); validate_forecasts(fc)
         ex = pd.read_csv(files["exposure"]); ex = ex[ex["event"].astype(str) == ev_name]
+        ex = ex[ex["imaged_frac"] >= 0.5]   # dates on which Sentinel-1 did not image the district are unobserved
         units = ex.groupby("district", as_index=False)["total_pop"].max()
         vf = f"{D}/vulnerability.csv"
         if os.path.exists(vf):
