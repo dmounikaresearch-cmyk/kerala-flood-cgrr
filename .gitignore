@@ -2,6 +2,9 @@ data/raw/*
 !data/raw/.gitkeep
 data/processed/*
 !data/processed/.gitkeep
+!data/processed/*.csv
+!data/processed/*.json
+!data/processed/README.md
 results/*
 !results/.gitkeep
 !results/tables/
