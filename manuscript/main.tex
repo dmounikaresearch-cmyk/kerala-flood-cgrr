@@ -5,7 +5,7 @@
 %%
 %% Section order follows the author's structure:
 %%  Abstract | Introduction | Literature survey | Problem statement and
-%%  research gap | Novelty and proposed algorithm | Dataset and data
+%%  research gap | Proposed algorithm | Dataset and data
 %%  preprocessing | Methodology | Evaluation metrics | Result evaluation
 %%  | Conclusion and future work | References
 %%
@@ -85,7 +85,7 @@ The study addresses three research questions:
 
 The contributions are as follows. (1) A calibration-to-decision chain: forecast probabilities are recalibrated by temperature scaling, and district-level conformal prediction sets of flood risk classes are mapped into demand ranges with a coverage interpretation, so that a single setting $\alpha$ controls how cautious the plan is. (2) A robust allocation model with inundation-dependent travel times, landslide road closures and an explicit cost for relocating teams, with two supporting properties: its robust form is exact and linear, and calibrated forecasts give a probabilistic bound on unmet demand. (3) A forecast-triggered re-planning rule that gives authorities a stated reason for each redeployment. (4) A hindcast evaluation on the 2018 Kerala floods, with the 2019 floods held out, against seven baselines including uncalibrated and calibrated forecast-based allocation, with ablations and stress scenarios, and recommendations for disaster management authorities.
 
-Section~\ref{sec:lit} surveys the literature and Section~\ref{sec:gap} states the problem and the research gap. Section~\ref{sec:novelty} presents the novel components and the proposed algorithm. Section~\ref{sec:data} describes the study area, data and preprocessing, and Section~\ref{sec:method} the methodology. Section~\ref{sec:metrics} defines the evaluation metrics, Section~\ref{sec:results} reports and discusses the results, and Section~\ref{sec:conclusion} concludes.
+Section~\ref{sec:lit} surveys the literature and Section~\ref{sec:gap} states the problem and the research gap. Section~\ref{sec:novelty} presents the key components of the framework and the proposed algorithm. Section~\ref{sec:data} describes the study area, data and preprocessing, and Section~\ref{sec:method} the methodology. Section~\ref{sec:metrics} defines the evaluation metrics, Section~\ref{sec:results} reports and discusses the results, and Section~\ref{sec:conclusion} concludes.
 
 %% =====================================================================
 \section{Literature survey}\label{sec:lit}
@@ -153,9 +153,9 @@ The literature in Section~\ref{sec:lit} leaves four gaps.
 RQ1 addresses G1 and G2, RQ2 addresses G4 and RQ3 addresses G3.
 
 %% =====================================================================
-\section{Novelty and proposed algorithm}\label{sec:novelty}
+\section{Proposed algorithm}\label{sec:novelty}
 
-\subsection{Novel elements}
+\subsection{Key components}
 
 The framework introduces five elements that, to our knowledge, have not been combined for flood emergency response. (N0) \emph{Calibration before decision}: forecast probabilities are recalibrated (temperature scaling) and their reliability measured before they drive allocation (Sect.~\ref{sec:calib}). (N1) \emph{Calibrated demand ranges}: conformal prediction sets of flood risk classes are mapped through exposure and vulnerability into demand ranges with coverage at least $1-\alpha$ (Sect.~\ref{sec:bridge}). (N2) \emph{Data-driven uncertainty budget}: the number of units allowed to reach their upper demand together is set from calibration data rather than by hand (Definition~\ref{def:set}). (N3) \emph{Hazard-aware reachability}: travel times grow with predicted inundation depth, and routes deeper than a resource can cross or blocked by mapped landslides are excluded (Eq.~\ref{eq:travel}). (N4) \emph{Forecast-triggered re-planning}: the plan is revised only on a material forecast shift, a risk-class escalation or a route failure (Sect.~\ref{sec:trigger}). We call the combined method calibration-guided robust reallocation (CGRR). Novelty is claimed for the combination and its application to flood response; conformal sets for robust optimization exist in general \citep{Johnstone2021}.
 
