@@ -1,0 +1,12 @@
+{
+  "title": "Calibration-guided robust reallocation of emergency resources under evolving flood risk forecasts: code, data and results (Kerala 2018 and 2019)",
+  "upload_type": "software",
+  "description": "Code, processed inputs and results for the paper 'Calibration-guided robust reallocation of emergency resources under evolving flood risk forecasts: a digital twin framework' (D. Mounika and J. Kolluri, submitted to Natural Hazards). Includes the forecasting interface, temperature-scaling calibration, conformal prediction sets, robust allocation model, forecast-triggered re-planning, hindcast simulator, baselines B1-B5, FU, FC, ablations, Google Colab notebooks, result tables and the run log with input checksums.",
+  "creators": [
+    {"name": "Mounika, Dannuri", "affiliation": "School of Computer Science & Artificial Intelligence, SR University, Warangal, India", "orcid": "0009-0003-5478-2458"},
+    {"name": "Kolluri, Johnson", "affiliation": "School of Computer Science & Artificial Intelligence, SR University, Warangal, India", "orcid": "0000-0001-8266-1766"}
+  ],
+  "license": "MIT",
+  "keywords": ["flood emergency response", "forecast calibration", "conformal prediction", "robust optimization", "digital twin", "Kerala floods"],
+  "access_right": "open"
+}
