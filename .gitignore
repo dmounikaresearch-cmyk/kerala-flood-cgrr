@@ -4,6 +4,11 @@ data/processed/*
 !data/processed/.gitkeep
 results/*
 !results/.gitkeep
+!results/tables/
+!results/metrics/
+!results/figures/
+!results/run_log.txt
+results/figures/*.tiff
 *.tif
 *.graphml
 *.gpkg

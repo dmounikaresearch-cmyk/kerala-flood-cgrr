@@ -1,0 +1,221 @@
+\documentclass[10pt]{article}
+\usepackage[margin=2cm,landscape]{geometry}\usepackage{booktabs,longtable}\usepackage[T1]{fontenc}
+\begin{document}
+\section*{Online Resource 1}
+\noindent Calibration-guided robust reallocation of emergency resources under evolving flood risk forecasts: a digital twin framework. D.~Mounika and J.~Kolluri. \emph{Natural Hazards}.
+
+\noindent Contents: S1 experiment configuration; S2 allocation results with interquartile ranges (2018, 2019); S3 sensitivity to $\alpha$ and $\eta$; S4 alternative need-share assumptions; S5 run log with input checksums. Code and notebooks: https://github.com/dmounikaresearch-cmyk/kerala-flood-cgrr.
+\section*{S1 Experiment configuration}
+\begin{longtable}{ll}\toprule Parameter & Value\\\midrule
+smoke\_test & False\\
+events & ['2018', '2019']\\
+model.alpha & 0.1\\
+model.eta & 0.1\\
+model.beta & 0.5\\
+model.tau\_max & 12.0\\
+model.lam & 0.01\\
+model.mu & 0.05\\
+model.rho & 0.5\\
+model.fixed\_width & 0.3\\
+model.b4\_gamma\_frac & 0.5\\
+model.need\_beta & [2.0, 98.0]\\
+model.resources.team.kappa & 150\\
+model.resources.team.hmax & 0.3\\
+model.resources.team.mode & road\\
+model.resources.boat.kappa & 60\\
+model.resources.boat.hmax & 99.0\\
+model.resources.boat.mode & boat\\
+model.resources.medical.kappa & 80\\
+model.resources.medical.hmax & 0.3\\
+model.resources.medical.mode & road\\
+experiment.n\_runs & 200\\
+experiment.n\_scen\_b3 & 30\\
+experiment.b5\_search & 60\\
+experiment.seed & 42\\
+experiment.sensitivity\_alpha & [0.05, 0.1, 0.2, 0.3]\\
+experiment.sensitivity\_eta & [0.0, 0.05, 0.1, 0.2, 0.3]\\
+experiment.demand\_means & [0.01, 0.02, 0.05]\\
+\bottomrule\end{longtable}
+\noindent Values marked ASSUMED in the configuration file: $\beta$, $\tau^{\max}$, need share Beta(2, 98), resource capacities $\kappa_r$ and depth limits $h^{\max}_r$. Stocks: 2018, 55 teams, 110 boats, 16 medical units; 2019, 9 teams, 18 boats, 8 medical units, across the hubs Thrissur, Ernakulam, Thiruvananthapuram and Kozhikode.
+\section*{S2 Allocation results, 2018 (median [interquartile range] over 200 runs)}\small\begin{tabular}{llllll}\toprule Method & Worst-unit weighted unmet & Total unmet (people) & Mean response (h) & P95 response (h) & Coverage (\%)\\\midrule
+B1 & 138,870 [89,500, 187,000] & 281,293 [198,000, 387,000] & 0.78 [0.64, 0.88] & 1.48 [1.45, 1.67] & 36.3 [28.6, 42.2]\\
+B2 & 82,750 [54,500, 147,000] & 159,526 [99,500, 253,000] & 1.11 [0.89, 1.23] & 2.75 [2.09, 2.81] & 63.0 [53.5, 71.4]\\
+B3 & 53,543 [15,000, 117,000] & 69,147 [22,600, 150,000] & 0.96 [0.75, 1.09] & 2.08 [2.08, 2.08] & 85.2 [73.9, 94.2]\\
+B4 & 101,830 [60,900, 154,000] & 152,695 [91,900, 246,000] & 0.78 [0.64, 0.88] & 1.48 [1.45, 1.67] & 65.6 [53.5, 74.7]\\
+B5 & 82,481 [54,300, 126,000] & 167,604 [109,000, 232,000] & 1.13 [0.90, 1.25] & 2.75 [2.09, 2.81] & 62.7 [57.1, 69.5]\\
+CGRR & 72,937 [30,400, 132,000] & 101,557 [46,500, 180,000] & 0.78 [0.64, 0.89] & 1.48 [1.45, 1.67] & 76.5 [66.1, 87.4]\\
+FU & 116,613 [76,000, 166,000] & 192,859 [127,000, 294,000] & 0.78 [0.64, 0.88] & 1.48 [1.45, 1.67] & 55.6 [44.8, 63.8]\\
+FC & 114,526 [71,600, 163,000] & 182,789 [119,000, 290,000] & 0.78 [0.64, 0.88] & 1.48 [1.45, 1.67] & 57.7 [46.2, 66.4]\\
+A1 & 101,830 [60,900, 154,000] & 153,051 [91,900, 246,000] & 0.78 [0.64, 0.88] & 1.48 [1.45, 1.67] & 65.4 [53.5, 74.7]\\
+A2a & 72,972 [30,500, 132,000] & 101,592 [46,500, 180,000] & 0.78 [0.64, 0.89] & 1.48 [1.45, 1.67] & 76.5 [66.0, 87.3]\\
+A2b & 104,305 [67,300, 153,000] & 185,412 [122,000, 281,000] & 0.86 [0.71, 0.97] & 1.67 [1.45, 1.67] & 56.9 [47.1, 66.0]\\
+A3 & 70,918 [29,300, 133,000] & 101,257 [45,400, 179,000] & 0.83 [0.69, 0.96] & 1.67 [1.45, 1.67] & 76.6 [66.1, 87.9]\\
+\bottomrule\end{tabular}
+
+\vspace{4mm}\begin{tabular}{lcccccc}\toprule Method & Missed high-risk & Relocations & Re-plans & Failed dispatches & Gini & Utilization (\%)\\\midrule
+B1 & 5.0 & 0 & 1 & 0 & 0.22 & 60.7\\
+B2 & 3.0 & 997 & 96 & 1 & 0.11 & 17.6\\
+B3 & 1.0 & 190 & 96 & 5 & 0.03 & 23.9\\
+B4 & 2.0 & 77 & 96 & 0 & 0.09 & 44.1\\
+B5 & 3.0 & 5,547 & 96 & 1 & 0.11 & 17.8\\
+CGRR & 1.0 & 109 & 20 & 1 & 0.06 & 35.3\\
+FU & 3.5 & 43 & 96 & 0 & 0.13 & 53.2\\
+FC & 3.0 & 63 & 96 & 0 & 0.11 & 49.5\\
+A1 & 2.0 & 76 & 21 & 0 & 0.09 & 44.3\\
+A2a & 1.0 & 109 & 96 & 1 & 0.06 & 35.4\\
+A2b & 3.0 & 0 & 1 & 24 & 0.15 & 57.1\\
+A3 & 2.0 & 75 & 21 & 19 & 0.07 & 35.3\\
+\bottomrule\end{tabular}\normalsize
+\clearpage
+\section*{S2 Allocation results, 2019 (median [interquartile range] over 200 runs)}\small\begin{tabular}{llllll}\toprule Method & Worst-unit weighted unmet & Total unmet (people) & Mean response (h) & P95 response (h) & Coverage (\%)\\\midrule
+B1 & 123,695 [88,300, 166,000] & 293,336 [219,000, 387,000] & 0.94 [0.74, 1.12] & 2.08 [2.08, 2.08] & 29.5 [24.1, 35.5]\\
+B2 & 122,991 [88,000, 167,000] & 301,030 [223,000, 397,000] & 1.28 [1.02, 1.46] & 3.72 [3.72, 3.72] & 27.8 [22.8, 33.7]\\
+B3 & 125,563 [88,000, 170,000] & 299,584 [227,000, 396,000] & 1.14 [0.93, 1.30] & 2.08 [2.08, 2.08] & 27.6 [23.2, 33.4]\\
+B4 & 125,132 [88,000, 171,000] & 299,034 [224,000, 391,000] & 2.07 [1.86, 2.25] & 12.00 [12.00, 12.00] & 28.2 [23.4, 34.0]\\
+B5 & 122,991 [88,000, 167,000] & 301,110 [223,000, 397,000] & 1.28 [1.02, 1.47] & 3.72 [3.72, 3.72] & 27.8 [22.7, 33.7]\\
+CGRR & 117,669 [82,600, 157,000] & 305,489 [226,000, 392,000] & 1.44 [1.16, 1.70] & 12.00 [2.08, 12.00] & 28.1 [23.0, 33.8]\\
+FU & 124,541 [87,200, 169,000] & 301,700 [227,000, 396,000] & 1.23 [1.03, 1.43] & 1.73 [1.73, 2.90] & 27.4 [22.6, 32.9]\\
+FC & 123,682 [86,200, 168,000] & 299,309 [223,000, 395,000] & 1.17 [1.02, 1.27] & 2.90 [2.73, 2.90] & 28.0 [23.3, 33.9]\\
+A1 & 122,736 [89,000, 166,000] & 297,445 [223,000, 392,000] & 1.82 [1.64, 2.03] & 12.00 [12.00, 12.00] & 28.5 [23.7, 34.2]\\
+A2a & 119,375 [84,600, 161,000] & 305,843 [226,000, 390,000] & 1.42 [1.15, 1.67] & 3.43 [2.08, 12.00] & 28.1 [23.0, 33.7]\\
+A2b & 117,518 [86,400, 156,000] & 296,928 [219,000, 389,000] & 1.10 [0.90, 1.30] & 2.08 [2.08, 2.08] & 29.5 [23.3, 35.2]\\
+A3 & 118,358 [86,100, 163,000] & 290,451 [215,000, 383,000] & 2.64 [1.91, 3.65] & 12.00 [12.00, 12.00] & 30.8 [24.0, 36.7]\\
+\bottomrule\end{tabular}
+
+\vspace{4mm}\begin{tabular}{lcccccc}\toprule Method & Missed high-risk & Relocations & Re-plans & Failed dispatches & Gini & Utilization (\%)\\\midrule
+B1 & 4.0 & 0 & 1 & 0 & 0.26 & 48.7\\
+B2 & 4.0 & 1,365 & 84 & 1 & 0.31 & 45.8\\
+B3 & 4.0 & 735 & 84 & 1 & 0.30 & 45.8\\
+B4 & 4.0 & 579 & 84 & 1 & 0.35 & 46.7\\
+B5 & 4.0 & 1,364 & 84 & 1 & 0.31 & 45.7\\
+CGRR & 3.0 & 391 & 69 & 0 & 0.37 & 45.7\\
+FU & 4.0 & 349 & 84 & 1 & 0.29 & 45.9\\
+FC & 3.0 & 657 & 84 & 1 & 0.29 & 46.1\\
+A1 & 4.0 & 524 & 68 & 1 & 0.34 & 47.6\\
+A2a & 4.0 & 466 & 84 & 0 & 0.36 & 45.8\\
+A2b & 3.0 & 0 & 1 & 0 & 0.46 & 46.9\\
+A3 & 3.0 & 9 & 64 & 0 & 0.40 & 49.4\\
+\bottomrule\end{tabular}\normalsize
+\clearpage
+\section*{S3 Sensitivity to $\alpha$ and $\eta$, 2018 (CGRR, median over 200 runs)}\small\begin{longtable}{llllllll}\toprule $\alpha$ & $\eta$ & Set coverage & Mean set size & Coverage (\%) & Worst-unit unmet & Relocations & Re-plans\\\midrule
+0.05 & 0.00 & 0.995 & 2.73 & 84.0 & 53,618 & 181 & 96\\
+0.05 & 0.05 & 0.995 & 2.73 & 84.0 & 53,618 & 181 & 43\\
+0.05 & 0.10 & 0.995 & 2.73 & 84.0 & 53,618 & 181 & 41\\
+0.05 & 0.20 & 0.995 & 2.73 & 84.0 & 53,618 & 181 & 41\\
+0.05 & 0.30 & 0.995 & 2.73 & 84.0 & 53,618 & 181 & 41\\
+0.10 & 0.00 & 0.990 & 2.34 & 76.5 & 72,972 & 109 & 96\\
+0.10 & 0.05 & 0.990 & 2.34 & 76.5 & 72,937 & 109 & 33\\
+0.10 & 0.10 & 0.990 & 2.34 & 76.5 & 72,937 & 109 & 20\\
+0.10 & 0.20 & 0.990 & 2.34 & 76.5 & 72,937 & 109 & 14\\
+0.10 & 0.30 & 0.990 & 2.34 & 76.5 & 72,937 & 109 & 14\\
+0.20 & 0.00 & 0.906 & 1.80 & 59.8 & 109,592 & 59 & 96\\
+0.20 & 0.05 & 0.906 & 1.80 & 59.9 & 109,592 & 57 & 11\\
+0.20 & 0.10 & 0.906 & 1.80 & 59.9 & 109,592 & 55 & 8\\
+0.20 & 0.20 & 0.906 & 1.80 & 59.9 & 109,592 & 55 & 6\\
+0.20 & 0.30 & 0.906 & 1.80 & 59.9 & 109,592 & 55 & 6\\
+0.30 & 0.00 & 0.779 & 1.46 & 60.1 & 109,592 & 64 & 96\\
+0.30 & 0.05 & 0.779 & 1.46 & 60.1 & 109,592 & 63 & 27\\
+0.30 & 0.10 & 0.779 & 1.46 & 59.4 & 109,592 & 60 & 10\\
+0.30 & 0.20 & 0.779 & 1.46 & 59.4 & 109,592 & 60 & 7\\
+0.30 & 0.30 & 0.779 & 1.46 & 59.4 & 109,592 & 60 & 7\\
+\bottomrule\end{longtable}\normalsize
+\section*{S3 Sensitivity to $\alpha$ and $\eta$, 2019 (CGRR, median over 200 runs)}\small\begin{longtable}{llllllll}\toprule $\alpha$ & $\eta$ & Set coverage & Mean set size & Coverage (\%) & Worst-unit unmet & Relocations & Re-plans\\\midrule
+0.05 & 0.00 & 0.982 & 2.91 & 30.1 & 114,358 & 262 & 84\\
+0.05 & 0.05 & 0.982 & 2.91 & 30.2 & 114,358 & 260 & 81\\
+0.05 & 0.10 & 0.982 & 2.91 & 30.2 & 114,448 & 242 & 66\\
+0.05 & 0.20 & 0.982 & 2.91 & 31.1 & 114,660 & 154 & 39\\
+0.05 & 0.30 & 0.982 & 2.91 & 31.4 & 115,351 & 128 & 34\\
+0.10 & 0.00 & 0.975 & 2.42 & 28.1 & 119,375 & 466 & 84\\
+0.10 & 0.05 & 0.975 & 2.42 & 28.2 & 119,305 & 464 & 82\\
+0.10 & 0.10 & 0.975 & 2.42 & 28.1 & 117,669 & 391 & 69\\
+0.10 & 0.20 & 0.975 & 2.42 & 28.8 & 117,304 & 277 & 55\\
+0.10 & 0.30 & 0.975 & 2.42 & 28.2 & 119,345 & 258 & 50\\
+0.20 & 0.00 & 0.836 & 1.79 & 26.4 & 130,172 & 381 & 84\\
+0.20 & 0.05 & 0.836 & 1.79 & 26.4 & 130,292 & 369 & 81\\
+0.20 & 0.10 & 0.836 & 1.79 & 26.4 & 128,932 & 301 & 60\\
+0.20 & 0.20 & 0.836 & 1.79 & 25.6 & 131,992 & 125 & 24\\
+0.20 & 0.30 & 0.836 & 1.79 & 25.2 & 128,519 & 61 & 13\\
+0.30 & 0.00 & 0.708 & 1.48 & 27.5 & 125,648 & 477 & 84\\
+0.30 & 0.05 & 0.708 & 1.48 & 27.5 & 125,553 & 467 & 80\\
+0.30 & 0.10 & 0.708 & 1.48 & 27.6 & 123,787 & 388 & 62\\
+0.30 & 0.20 & 0.708 & 1.48 & 26.1 & 129,422 & 174 & 33\\
+0.30 & 0.30 & 0.708 & 1.48 & 25.7 & 129,952 & 109 & 23\\
+\bottomrule\end{longtable}\normalsize
+\section*{S4 Coverage (\%) under alternative mean need shares, 2018}\begin{tabular}{lccc}\toprule Method & 1\% & 2\% & 5\%\\\midrule
+B1 & 55.3 & 36.3 & 17.0\\
+B2 & 79.6 & 63.0 & 36.4\\
+B3 & 98.9 & 85.2 & 54.8\\
+B4 & 85.7 & 65.6 & 35.4\\
+B5 & 76.3 & 62.7 & 43.3\\
+CGRR & 93.9 & 76.5 & 46.0\\
+FC & 78.8 & 57.7 & 29.7\\
+FU & 75.6 & 55.6 & 27.8\\
+\bottomrule\end{tabular}
+\section*{S4 Coverage (\%) under alternative mean need shares, 2019}\begin{tabular}{lccc}\toprule Method & 1\% & 2\% & 5\%\\\midrule
+B1 & 47.7 & 29.5 & 13.1\\
+B2 & 45.2 & 27.8 & 12.3\\
+B3 & 43.7 & 27.6 & 12.6\\
+B4 & 43.6 & 28.2 & 12.9\\
+B5 & 45.2 & 27.8 & 12.3\\
+CGRR & 44.9 & 28.1 & 12.4\\
+FC & 44.5 & 28.0 & 12.6\\
+FU & 43.5 & 27.4 & 12.4\\
+\bottomrule\end{tabular}
+\section*{S5 Run log}\scriptsize\begin{verbatim}
+2026-11-06 16:06:06 START smoke_test=False python=3.13.18 numpy=2.4.6 pandas=2.2.3
+2026-11-06 16:06:06 CONFIG {"smoke_test": false, "events": ["2018", "2019"], "data_dir": "/content/drive/MyDrive/Paper4_Kerala", "results_dir":
+"/content/drive/MyDrive/Paper4_Kerala/results", "model": {"alpha": 0.1, "eta": 0.1, "beta": 0.5, "tau_max": 12.0, "lam": 0.01, "mu": 0.05, "rho": 0.5, "fixed_width": 0.3,
+"b4_gamma_frac": 0.5, "need_beta": [2.0, 98.0], "resources": {"team": {"kappa": 150, "hmax": 0.3, "mode": "road"}, "boat": {"kappa": 60, "hmax": 99.0, "mode": "boat"}, "medical":
+{"kappa": 80, "hmax": 0.3, "mode": "road"}}}, "experiment": {"n_runs": 200, "n_scen_b3": 30, "b5_search": 60, "seed": 42, "sensitivity_alpha": [0.05, 0.1, 0.2, 0.3],
+"sensitivity_eta": [0.0, 0.05, 0.1, 0.2, 0.3], "demand_means": [0.01, 0.02, 0.05]}}
+2026-11-06 16:06:06 [2018] temperature T=1.425  qhat=0.875  delta=[7.00e-06 7.60e-05 2.63e-04 4.61e-04]  Gamma=6
+2026-11-06 16:06:06 [2018] test ECE raw=0.107 -> scaled=0.150; Brier 0.470 -> 0.486
+2026-11-06 16:06:10   B1    replans=  1  coverage=36.3%
+2026-11-06 16:06:11   B2    replans= 96  coverage=63.0%
+2026-11-06 16:06:37   B3    replans= 96  coverage=85.2%
+2026-11-06 16:06:45   B4    replans= 96  coverage=65.6%
+2026-11-06 16:06:45   B5    replans= 96  coverage=62.7%
+2026-11-06 16:06:47   CGRR  replans= 20  coverage=76.5%
+2026-11-06 16:06:50   A1    replans= 21  coverage=65.4%
+2026-11-06 16:06:55   A2a   replans= 96  coverage=76.5%
+2026-11-06 16:06:55   A2b   replans=  1  coverage=56.9%
+2026-11-06 16:06:59   A3    replans= 21  coverage=76.6%
+2026-11-06 16:07:05   FU    replans= 96  coverage=55.6%
+2026-11-06 16:07:09   FC    replans= 96  coverage=57.7%
+2026-11-06 16:43:14   S1: best baseline B3
+2026-11-06 16:43:14   S2: best baseline B3
+2026-11-06 16:43:14   S3: best baseline B3
+2026-11-06 16:43:14   S4: best baseline B3
+2026-11-06 16:43:37   alpha=0.05 done
+2026-11-06 16:43:49   alpha=0.1 done
+2026-11-06 16:43:58   alpha=0.2 done
+2026-11-06 16:44:09   alpha=0.3 done
+2026-11-06 16:44:10 [2018] done
+2026-11-06 16:44:10 [2019] temperature T=1.425  qhat=0.875  delta=[7.00e-06 7.60e-05 2.63e-04 4.61e-04]  Gamma=6
+2026-11-06 16:44:10 [2019] test ECE raw=0.169 -> scaled=0.151; Brier 0.560 -> 0.556
+2026-11-06 16:44:12   B1    replans=  1  coverage=29.5%
+2026-11-06 16:44:12   B2    replans= 84  coverage=27.8%
+2026-11-06 16:53:40   B3    replans= 84  coverage=27.6%
+2026-11-06 17:19:47   B4    replans= 84  coverage=28.2%
+2026-11-06 17:19:47   B5    replans= 84  coverage=27.8%
+2026-11-06 17:21:23   CGRR  replans= 69  coverage=28.1%
+2026-11-06 17:44:01   A1    replans= 68  coverage=28.5%
+2026-11-06 17:45:43   A2a   replans= 84  coverage=28.1%
+2026-11-06 17:45:44   A2b   replans=  1  coverage=29.5%
+2026-11-06 17:45:48   A3    replans= 64  coverage=30.8%
+2026-11-06 17:46:05   FU    replans= 84  coverage=27.4%
+2026-11-06 17:48:44   FC    replans= 84  coverage=28.0%
+2026-11-06 18:05:02   S1: best baseline B1
+2026-11-06 18:05:02   S2: best baseline B1
+2026-11-06 18:05:02   S3: best baseline B1
+2026-11-06 18:05:02   S4: best baseline B1
+2026-11-06 18:06:22   alpha=0.05 done
+2026-11-06 18:13:20   alpha=0.1 done
+2026-11-06 18:19:52   alpha=0.2 done
+2026-11-06 18:25:06   alpha=0.3 done
+2026-11-06 18:25:07 [2019] done
+2026-11-06 18:25:07 END
+INPUT_SHA256_16 {"2018": {"forecasts": "1dec4a31025bb1cb", "stocks": "610e0187999926bd", "route_times": "3c0c78b75c9cb3c4", "exposure": "1141856b81f400e1", "tau0":
+"2be6eec7bf6fe711", "calibration": "49a98d2fdc626456"}, "2019": {"forecasts": "bd4d8ca4f91c3092", "stocks": "e8d562e6fa3e1c44", "route_times": "f3aff08bfb6d8387", "exposure":
+"1141856b81f400e1", "tau0": "2be6eec7bf6fe711", "calibration": "49a98d2fdc626456"}}
+\end{verbatim}\end{document}

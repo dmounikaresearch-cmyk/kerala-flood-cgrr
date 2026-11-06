@@ -59,6 +59,8 @@ python reproduce.py                      # smoke_test: true -> random data (code
 # put real inputs in data/processed/, set smoke_test: false in configs/experiment.yaml, run again
 ```
 
+Results of the final run (6 Nov 2026, 200 runs per method) are committed in `results/` (tables, metrics, figures, `run_log.txt` with input checksums).
+
 Outputs: `results/tables/table3`–`table7` (CSV, plus LaTeX rows for Table 5), `results/metrics/` (reliability bins, Wilcoxon/Holm, trigger log) and `results/run_log.txt` (timestamps, versions, configuration, input checksums).
 
 ## Methods compared

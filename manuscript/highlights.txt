@@ -1,7 +1,7 @@
 Highlights (enter in the Natural Hazards submission system; 3-5 bullets, max 85 characters each)
 
-- Flood risk forecasts are recalibrated before they drive rescue resource allocation
+- Calibrated demand ranges raised coverage 11 points over fixed-width ranges
 - Conformal sets turn calibrated forecasts into demand ranges with stated coverage
 - Routes slow with predicted flood depth and close where landslides block roads
-- A trigger rule moves teams only when forecasts, risk classes or roads change
+- A trigger rule kept 76.5% coverage with 20 instead of 96 re-plans
 - Tested on the 2018 Kerala floods, with the 2019 floods as an independent test
