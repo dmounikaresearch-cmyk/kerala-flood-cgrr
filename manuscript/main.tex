@@ -53,10 +53,10 @@
 
 \title[Calibration-guided reallocation of flood emergency resources]{Calibration-guided robust reallocation of emergency resources under evolving flood risk forecasts: a digital twin framework}
 
-\author[1]{\fnm{Dannuri} \sur{Mounika}}\email{dmounikaresearch@gmail.com}
-\author*[1]{\fnm{Johnson} \sur{Kolluri}}\email{johnson.kolluri@sru.edu.in}
+\author{\fnm{Dannuri} \sur{Mounika}}\email{dmounikaresearch@gmail.com}
+\author*{\fnm{Johnson} \sur{Kolluri}\textsuperscript{*}}\email{johnson.kolluri@sru.edu.in}
 
-\affil*[1]{\orgdiv{School of Computer Science \& Artificial Intelligence}, \orgname{SR University}, \orgaddress{\city{Warangal}, \postcode{506371}, \state{Telangana}, \country{India}}}
+\affil{\orgdiv{School of Computer Science \& Artificial Intelligence}, \orgname{SR University}, \orgaddress{\city{Warangal}, \postcode{506371}, \state{Telangana}, \country{India}}}
 
 %% Natural Hazards: 150--250 words
 \abstract{In the first days of a major flood, authorities must place scarce rescue teams, boats and medical units while risk forecasts keep changing and roads close to floodwater and landslides. Existing allocation models describe forecast uncertainty with hand-tuned budgets, so the protection a plan offers is not tied to how reliable the forecasts are. This study links the two in a digital twin framework. Flood risk forecasts are recalibrated by temperature scaling and converted, through conformal prediction and an exposure model, into demand ranges with a chosen coverage $1-\alpha$. A robust allocation model assigns resources with travel times that grow with predicted inundation, landslide-blocked routes removed and a cost for moving teams, and a trigger rule re-plans only when forecasts, risk classes or roads change enough. The framework is evaluated on hindcasts of the August 2018 Kerala floods and, as an independent test, the 2019 floods, against seven baselines. Temperature scaling reduced calibration error on 2019 but not on 2018, where forecasts were under-confident. In 2018 the framework covered 76.5\% of modelled demand, against 55.6--65.6\% for forecast-based, fixed-budget robust and learned policies, with 20 re-plans instead of 96. Two-stage stochastic programming covered more (85.2\%) but re-planned every period with 74\% more relocations; at $\alpha = 0.05$ the framework reached 84.0\% with 41 re-plans. Under the severe resource scarcity of 2019, all methods covered 27--30\% of demand. The framework gives authorities one interpretable reliability setting and a stated reason for each redeployment.}
