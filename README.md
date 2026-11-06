@@ -1,5 +1,7 @@
 # Calibration-guided robust reallocation of emergency resources under evolving flood risk forecasts: a digital twin framework
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24020333.svg)](https://doi.org/10.5281/zenodo.24020333)
+
 Code, data and manuscript for the paper by D. Mounika and J. Kolluri (submitted to *Natural Hazards*, Springer).
 
 The contribution is **not** a new flood prediction model. The paper shows that recalibrated flood forecasts, converted into demand ranges with a stated coverage, give more reliable and more stable emergency resource allocation as a flood evolves. The case studies are the August 2018 Kerala floods, with the August 2019 floods as an independent test.
